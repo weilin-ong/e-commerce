@@ -3,8 +3,10 @@ import {
   createAuthUserWithEmailAndPassword,
   createUserDocumentFromAuth,
 } from '../../utils/firebase.utils';
-import { FormInput, Button } from '../';
-import './SignUp.styles.scss';
+import { toastOptions } from '../../utils/toast.utils';
+import { FormInput, Button } from '..';
+import './SignUpForm.styles.scss';
+import { toast } from 'react-toastify';
 
 const initialState = {
   name: '',
@@ -17,26 +19,30 @@ const inputFieldAttributes = [
   {
     label: 'display name',
     name: 'name',
+    id:'signUpName',
     type: 'text',
   },
   {
     label: 'email',
     name: 'email',
+    id:'signUpEmail',
     type: 'email',
   },
   {
     label: 'password',
     name: 'password',
+    id:'signUpPassword',
     type: 'password',
   },
   {
     label: 'confirm password',
     name: 'confirmPw',
+    id:'signUpConfirmPw',
     type: 'password',
   },
 ];
 
-export default function SignUp() {
+export default function SignUpForm() {
   const [form, setForm] = useState(initialState);
 
   function handleChange(e) {
@@ -48,23 +54,28 @@ export default function SignUp() {
     e.preventDefault();
     if (form.password === form.confirmPw) {
       try {
+        //create user on firebase
         const { user } = await createAuthUserWithEmailAndPassword(
           form.email,
           form.password
         );
-
+        //create user's doc on firestore
         await createUserDocumentFromAuth({
           ...user,
           displayName: form.name,
         });
+        toast.success('Signed up successfully.', toastOptions);
       } catch (error) {
         if (error.code === 'auth/email-already-in-use')
-          console.log('Email already in use, please log in.');
+          toast.error('Email already in use, please log in.', toastOptions);
         if (error.code === 'auth/weak-password')
-          console.log('Password should be at least 6 characters.');
+          toast.error(
+            'Password should be at least 6 characters.',
+            toastOptions
+          );
       }
     } else {
-      console.log('incorrect password');
+      toast.error('Incorrect password.', toastOptions);
     }
     e.target.reset();
     setForm(initialState);
@@ -77,7 +88,9 @@ export default function SignUp() {
       <form onSubmit={handleSubmit}>
         {inputFieldAttributes.map((att) => (
           <FormInput
+            key={att.id}
             label={att.label}
+            id={att.id}
             name={att.name}
             value={form[att.name]}
             type={att.type}

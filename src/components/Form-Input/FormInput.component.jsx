@@ -1,16 +1,23 @@
 import './FormInput.styles.scss';
 
-export default function FormInput({ label, name, value, type, handleChange }) {
+export default function FormInput({
+  label,
+  name,
+  id,
+  value,
+  type,
+  handleChange,
+}) {
   return (
     <div className='group'>
       <input
         className='form-input'
         required
         autoComplete='off'
-        id={name}
-        type={type}
         name={name}
         value={value}
+        id={id}
+        type={type}
         onChange={handleChange}
       />
       {/* place label after input for styling purpose */}
@@ -22,7 +29,6 @@ export default function FormInput({ label, name, value, type, handleChange }) {
           {label}
         </label>
       )}
-
     </div>
   );
 }

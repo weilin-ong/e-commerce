@@ -4,6 +4,7 @@ import {
   signInWithPopup,
   GoogleAuthProvider,
   createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
 } from 'firebase/auth';
 
 //create/update data: setDoc, read data: getDoc.
@@ -35,6 +36,7 @@ export const auth = getAuth(app);
 // Initialize Cloud Firestore and get a reference to the service
 export const db = getFirestore(app);
 
+
 //google sign-in
 const googleProvider = new GoogleAuthProvider();
 googleProvider.setCustomParameters({
@@ -50,6 +52,14 @@ export async function createAuthUserWithEmailAndPassword(email, password) {
   if (!email || !password) return;
   return await createUserWithEmailAndPassword(auth, email, password);
 }
+
+//manual sign in
+export async function signInAuthUserWithEmailAndPassword(email, password) {
+  if (!email || !password) return;
+  return await signInWithEmailAndPassword(auth, email, password);
+}
+
+
 
 //firestore
 export async function createUserDocumentFromAuth(userAuth) {

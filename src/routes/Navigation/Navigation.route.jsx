@@ -17,7 +17,7 @@ export default function Navigation() {
           <Link className='nav__link' to='/contact'>
             contact
           </Link>
-          <Link className='nav__link' to='/signin'>
+          <Link className='nav__link' to='/auth'>
             sign in
           </Link>
         </ul>
