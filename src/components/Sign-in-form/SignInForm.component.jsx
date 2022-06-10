@@ -6,6 +6,7 @@ import {
 } from '../../utils/firebase.utils';
 import { FormInput, Button } from '..';
 import './SignInForm.styles.scss';
+
 import { toast } from 'react-toastify';
 import { toastOptions } from '../../utils/toast.utils';
 
@@ -32,7 +33,7 @@ const inputFieldAttributes = [
 export default function SignInForm() {
   const [form, setForm] = useState(initialState);
 
-//Google Sign in
+  //Google Sign in
   async function signInWithGoogle() {
     try {
       const { user } = await signInWithGooglePopup();
@@ -55,6 +56,7 @@ export default function SignInForm() {
 
     try {
       await signInAuthUserWithEmailAndPassword(form.email, form.password);
+
       toast.success('Signed in successfully', toastOptions);
     } catch (error) {
       if (error.code === 'auth/wrong-password')
@@ -62,6 +64,8 @@ export default function SignInForm() {
       if (error.code === 'auth/user-not-found')
         toast.error('User not found', toastOptions);
     }
+
+    //clear form
     e.target.reset();
     setForm(initialState);
   }

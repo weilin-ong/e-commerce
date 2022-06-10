@@ -5,8 +5,9 @@ import {
 } from '../../utils/firebase.utils';
 import { toastOptions } from '../../utils/toast.utils';
 import { FormInput, Button } from '..';
-import './SignUpForm.styles.scss';
+
 import { toast } from 'react-toastify';
+import './SignUpForm.styles.scss';
 
 const initialState = {
   name: '',
@@ -19,25 +20,25 @@ const inputFieldAttributes = [
   {
     label: 'display name',
     name: 'name',
-    id:'signUpName',
+    id: 'signUpName',
     type: 'text',
   },
   {
     label: 'email',
     name: 'email',
-    id:'signUpEmail',
+    id: 'signUpEmail',
     type: 'email',
   },
   {
     label: 'password',
     name: 'password',
-    id:'signUpPassword',
+    id: 'signUpPassword',
     type: 'password',
   },
   {
     label: 'confirm password',
     name: 'confirmPw',
-    id:'signUpConfirmPw',
+    id: 'signUpConfirmPw',
     type: 'password',
   },
 ];
@@ -64,6 +65,7 @@ export default function SignUpForm() {
           ...user,
           displayName: form.name,
         });
+
         toast.success('Signed up successfully.', toastOptions);
       } catch (error) {
         if (error.code === 'auth/email-already-in-use')

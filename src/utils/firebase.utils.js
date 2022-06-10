@@ -5,6 +5,8 @@ import {
   GoogleAuthProvider,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  signOut,
+  onAuthStateChanged,
 } from 'firebase/auth';
 
 //create/update data: setDoc, read data: getDoc.
@@ -36,7 +38,7 @@ export const auth = getAuth(app);
 // Initialize Cloud Firestore and get a reference to the service
 export const db = getFirestore(app);
 
-
+/* AUTHENTICATION */
 //google sign-in
 const googleProvider = new GoogleAuthProvider();
 googleProvider.setCustomParameters({
@@ -48,20 +50,28 @@ export function signInWithGooglePopup() {
 }
 
 //manual sign up
-export async function createAuthUserWithEmailAndPassword(email, password) {
+export function createAuthUserWithEmailAndPassword(email, password) {
   if (!email || !password) return;
-  return await createUserWithEmailAndPassword(auth, email, password);
+  return createUserWithEmailAndPassword(auth, email, password);
 }
 
 //manual sign in
-export async function signInAuthUserWithEmailAndPassword(email, password) {
+export function signInAuthUserWithEmailAndPassword(email, password) {
   if (!email || !password) return;
-  return await signInWithEmailAndPassword(auth, email, password);
+  return signInWithEmailAndPassword(auth, email, password);
 }
 
+//sign out
+export function signOutUser() {
+  return signOut(auth);
+}
 
+//monitor userAuth in order to persist state between refresh unless user sign out manually
+export function onAuthStateChangedListener(cb) {
+  return onAuthStateChanged(auth, cb);
+}
 
-//firestore
+/* DATABASE */
 export async function createUserDocumentFromAuth(userAuth) {
   if (!userAuth) return;
   const { displayName, email, uid } = userAuth;
