@@ -26,6 +26,7 @@ export function UserProvider({ children }) {
     }
     //returns an unsubscriber function (for cleanup)
     const unsubscribe = onAuthStateChangedListener(checkUserAuth);
+
     return unsubscribe;
   }, []);
 

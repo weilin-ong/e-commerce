@@ -1,17 +1,21 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { Link, Outlet } from 'react-router-dom';
 import { ReactComponent as Logo } from '../../assets/crown.svg';
-import { UserContext } from '../../context/user.context';
+import { UserContext } from '../../contexts/user.context';
+import { CartContext } from '../../contexts/cart.context';
 import { signOutUser } from '../../utils/firebase.utils';
+import { CartIcon, CartDropdown } from '../../components';
+
 import './Navigation.styles.scss';
 
 export default function Navigation() {
-  const { setCurrentUser, currentUser } = useContext(UserContext);
+  const { currentUser } = useContext(UserContext);
+  const { toogleCart } = useContext(CartContext);
+
 
   async function handleSignOut() {
     try {
       await signOutUser();
-      setCurrentUser(null);
     } catch (error) {
       console.error(error);
     }
@@ -22,7 +26,7 @@ export default function Navigation() {
         <Link className='nav__logo-container' to='/'>
           <Logo className='nav__logo' />
         </Link>
-        <ul className='nav__links-container'>
+        <div className='nav__links-container'>
           <Link className='nav__link' to='/shop'>
             shop
           </Link>
@@ -38,7 +42,9 @@ export default function Navigation() {
               sign in
             </Link>
           )}
-        </ul>
+          <CartIcon />
+        </div>
+        {toogleCart && <CartDropdown/>}
       </nav>
       <Outlet />
     </>
