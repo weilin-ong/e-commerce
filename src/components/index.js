@@ -8,3 +8,4 @@ export { default as ProductCard } from './Product-card/ProductCard.component';
 export { default as CartIcon } from './Cart-icon/CartIcon.component';
 export { default as CartDropdown } from './Cart-dropdown/CartDropdown.component';
 export { default as CartItem } from './Cart-item/CartItem.component';
+export { default as CheckoutItem } from './Checkout-item/CheckoutItem.component'

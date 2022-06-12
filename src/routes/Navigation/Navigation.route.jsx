@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
 import { Link, Outlet } from 'react-router-dom';
 import { ReactComponent as Logo } from '../../assets/crown.svg';
 import { UserContext } from '../../contexts/user.context';
