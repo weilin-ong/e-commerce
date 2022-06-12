@@ -10,7 +10,16 @@ import {
 } from 'firebase/auth';
 
 //create/update data: setDoc, read data: getDoc.
-import { getFirestore, doc, getDoc, setDoc } from 'firebase/firestore';
+import {
+  getFirestore,
+  doc,
+  getDoc,
+  setDoc,
+  collection,
+  writeBatch,
+  query,
+  getDocs,
+} from 'firebase/firestore';
 
 // using dotenv cause problem with firestore connection
 // const firebaseConfig = {
@@ -87,4 +96,32 @@ export async function createUserDocumentFromAuth(userAuth) {
   }
 
   return userDocRef;
+}
+
+// only for project setup, scrapping data to firestore
+export async function addCollectionAndDocuments(colKey, newObjs) {
+  const collectionRef = collection(db, colKey);
+  const batch = writeBatch(db);
+
+  newObjs.forEach((obj) => {
+    const docRef = doc(collectionRef, obj.title.toLowerCase());
+    batch.set(docRef, obj);
+  });
+
+  await batch.commit();
+}
+
+export async function getCategoriesAndDocuments() {
+  const collectionRef = collection(db, 'categories');
+  const q = query(collectionRef);
+
+  const querySnapShot = await getDocs(q);
+
+  const categoryMap = querySnapShot.docs.reduce((acc, docSnapShot) => {
+    const { title, items } = docSnapShot.data();
+    acc[title.toLowerCase()] = items;
+    return acc;
+  }, {});
+
+  return categoryMap;
 }

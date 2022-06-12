@@ -10,17 +10,14 @@ export default function CheckoutItem({ item }) {
     useContext(CartContext);
 
   function handleRemoveItem() {
-    console.log('hit');
     return removeItemFromCart(item);
   }
 
   function handleAddItem() {
-    console.log('hit');
     return addItemToCart(item);
   }
 
   function handleDelete() {
-    console.log('hit');
     return deleteItem(item);
   }
 
