@@ -7,7 +7,7 @@ import { toastOptions } from '../../utils/toast.utils';
 import { FormInput, Button } from '..';
 
 import { toast } from 'react-toastify';
-import './SignUpForm.styles.scss';
+import { SignUpContainer } from './SignUpForm.styles';
 
 const initialState = {
   name: '',
@@ -84,7 +84,7 @@ export default function SignUpForm() {
   }
 
   return (
-    <div className='sign-up-container'>
+    <SignUpContainer>
       <h2>don't have an account?</h2>
       <span>sign up with your email and password</span>
       <form onSubmit={handleSubmit}>
@@ -101,6 +101,6 @@ export default function SignUpForm() {
         ))}
         <Button cta='Sign Up' />
       </form>
-    </div>
+    </SignUpContainer>
   );
 }

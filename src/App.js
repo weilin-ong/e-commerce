@@ -1,5 +1,5 @@
 import { Routes, Route } from 'react-router-dom';
-import { Contact, Home, Navigation, Shop, Authentication } from './routes';
+import { Home, Navigation, Shop, Authentication } from './routes';
 import { ToastContainer } from 'react-toastify';
 
 import 'react-toastify/dist/ReactToastify.css';
@@ -13,7 +13,6 @@ function App() {
           <Route index element={<Home />} />
           <Route path='shop/*' element={<Shop />} />
           <Route path='auth' element={<Authentication />} />
-          <Route path='contact' element={<Contact />} />
           <Route path='checkout' element={<Checkout />} />
         </Route>
       </Routes>

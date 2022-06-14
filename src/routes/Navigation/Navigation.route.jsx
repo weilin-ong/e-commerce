@@ -1,17 +1,23 @@
 import { useContext } from 'react';
-import { Link, Outlet } from 'react-router-dom';
-import { ReactComponent as Logo } from '../../assets/crown.svg';
+import { Outlet } from 'react-router-dom';
+
+import { CartIcon, CartDropdown } from '../../components';
 import { UserContext } from '../../contexts/user.context';
 import { CartContext } from '../../contexts/cart.context';
-import { signOutUser } from '../../utils/firebase.utils';
-import { CartIcon, CartDropdown } from '../../components';
 
-import './Navigation.styles.scss';
+import { ReactComponent as Logo } from '../../assets/crown.svg';
+import { signOutUser } from '../../utils/firebase.utils';
+
+import {
+  NavContainer,
+  NavLink,
+  NavLinksContainer,
+  LogoContainer,
+} from './Navigation.styles';
 
 export default function Navigation() {
   const { currentUser } = useContext(UserContext);
   const { toogleCart } = useContext(CartContext);
-
 
   async function handleSignOut() {
     try {
@@ -22,30 +28,23 @@ export default function Navigation() {
   }
   return (
     <>
-      <nav className='nav'>
-        <Link className='nav__logo-container' to='/'>
-          <Logo className='nav__logo' />
-        </Link>
-        <div className='nav__links-container'>
-          <Link className='nav__link' to='/shop'>
-            shop
-          </Link>
-          <Link className='nav__link' to='/contact'>
-            contact
-          </Link>
+      <NavContainer>
+        <LogoContainer to='/'>
+          <Logo />
+        </LogoContainer>
+        <NavLinksContainer>
+          <NavLink to='/shop'>shop</NavLink>
           {currentUser ? (
-            <span className='nav__link' onClick={handleSignOut}>
+            <NavLink as='span' onClick={handleSignOut}>
               sign out
-            </span>
+            </NavLink>
           ) : (
-            <Link className='nav__link' to='/auth'>
-              sign in
-            </Link>
+            <NavLink to='/auth'>sign in</NavLink>
           )}
           <CartIcon />
-        </div>
-        {toogleCart && <CartDropdown/>}
-      </nav>
+        </NavLinksContainer>
+        {toogleCart && <CartDropdown />}
+      </NavContainer>
       <Outlet />
     </>
   );

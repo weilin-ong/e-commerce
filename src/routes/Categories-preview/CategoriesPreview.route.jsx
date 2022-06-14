@@ -7,10 +7,12 @@ export default function CategoriesPreview() {
 
   return (
     <>
-      {Object.keys(categoriesMap).map((title) => (
-     
-          <CategoryPreview key={title} products={categoriesMap[title]} title={title} />
-       
+      {Object.keys(categoriesMap).map((title, i) => (
+        <CategoryPreview
+          key={`${title}-{i}`}
+          products={categoriesMap[title]}
+          title={title}
+        />
       ))}
     </>
   );

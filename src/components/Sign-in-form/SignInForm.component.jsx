@@ -4,8 +4,8 @@ import {
   createUserDocumentFromAuth,
   signInAuthUserWithEmailAndPassword,
 } from '../../utils/firebase.utils';
-import { FormInput, Button } from '..';
-import './SignInForm.styles.scss';
+import { FormInput, Button, BUTTON_TYPE_CLASSES } from '..';
+import { ButtonsContainer, SignInContainer } from './SignInForm.styles.jsx';
 
 import { toast } from 'react-toastify';
 import { toastOptions } from '../../utils/toast.utils';
@@ -71,7 +71,7 @@ export default function SignInForm() {
   }
 
   return (
-    <div className='sign-in-container'>
+    <SignInContainer>
       <h2>already have an account?</h2>
       <span>sign in with your email and password</span>
       <form onSubmit={handleSubmit}>
@@ -86,16 +86,16 @@ export default function SignInForm() {
             handleChange={handleChange}
           />
         ))}
-        <div className='buttons-container'>
+        <ButtonsContainer>
           <Button cta='Sign In' />
           <Button
             type='button'
-            buttonType='google-sign-in'
+            buttonType={BUTTON_TYPE_CLASSES.google}
             cta='Google Sign In'
             onClick={signInWithGoogle}
           />
-        </div>
+        </ButtonsContainer>
       </form>
-    </div>
+    </SignInContainer>
   );
 }

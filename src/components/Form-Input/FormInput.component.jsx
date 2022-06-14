@@ -1,4 +1,4 @@
-import './FormInput.styles.scss';
+import { Group, Input, FormInputLabel } from './FormInput.styles';
 
 export default function FormInput({
   label,
@@ -9,8 +9,8 @@ export default function FormInput({
   handleChange,
 }) {
   return (
-    <div className='group'>
-      <input
+    <Group>
+      <Input
         className='form-input'
         required
         autoComplete='off'
@@ -22,13 +22,10 @@ export default function FormInput({
       />
       {/* place label after input for styling purpose */}
       {label && (
-        <label
-          className={`${value.length ? 'shrink' : ''} form-input-label`}
-          htmlFor={name}
-        >
+        <FormInputLabel shrink={value.length}>
           {label}
-        </label>
+        </FormInputLabel>
       )}
-    </div>
+    </Group>
   );
 }
