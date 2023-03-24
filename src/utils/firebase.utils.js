@@ -117,11 +117,15 @@ export async function getCategoriesAndDocuments() {
 
   const querySnapShot = await getDocs(q);
 
-  const categoryMap = querySnapShot.docs.reduce((acc, docSnapShot) => {
-    const { title, items } = docSnapShot.data();
-    acc[title.toLowerCase()] = items;
-    return acc;
-  }, {});
+  //return the most basic form so that there could be more targeted data transformation in redux
+  return querySnapShot.docs.map((docSnapShot) => docSnapShot.data());
+  
+  
+  // .reduce((acc, docSnapShot) => {
+  //   const { title, items } = docSnapShot.data();
+  //   acc[title.toLowerCase()] = items;
+  //   return acc;
+  // }, {});
 
-  return categoryMap;
+  // return categoryMap;
 }

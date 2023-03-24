@@ -13,3 +13,4 @@ export { default as CartDropdown } from './Cart-dropdown/CartDropdown.component'
 export { default as CartItem } from './Cart-item/CartItem.component';
 export { default as CheckoutItem } from './Checkout-item/CheckoutItem.component';
 export { default as CategoryPreview } from './Category-preview/CategoryPreview.component';
+export { default as Spinner } from './Spinner/Spinner.component';

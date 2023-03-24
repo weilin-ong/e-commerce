@@ -1,5 +1,13 @@
-import { useContext } from 'react';
-import { CartContext } from '../../contexts/cart.context';
+// import { useContext } from 'react';
+// import { CartContext } from '../../contexts/cart.context2';
+
+import { useSelector, useDispatch } from 'react-redux';
+import {
+  deleteItem,
+  removeItemFromCart,
+  addItemToCart,
+} from '../../store/cart/cart.action';
+import { selectCartItems } from '../../store/cart/cart.selector';
 
 import {
   Arrow,
@@ -12,21 +20,22 @@ import {
 } from './CheckoutItem.styles';
 
 export default function CheckoutItem({ item }) {
+  const dispatch = useDispatch();
+  const cartItems = useSelector(selectCartItems);
   const { id, name, quantity, price, imageUrl } = item;
-
-  const { addItemToCart, removeItemFromCart, deleteItem } =
-    useContext(CartContext);
+  // const { addItemToCart, removeItemFromCart, deleteItem } =
+  //   useContext(CartContext);
 
   function handleRemoveItem() {
-    return removeItemFromCart(item);
+    dispatch(removeItemFromCart(cartItems, item));
   }
 
   function handleAddItem() {
-    return addItemToCart(item);
+    dispatch(addItemToCart(cartItems, item));
   }
 
   function handleDelete() {
-    return deleteItem(item);
+    dispatch(deleteItem(cartItems, item));
   }
 
   return (

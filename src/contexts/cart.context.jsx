@@ -1,8 +1,8 @@
 import { createContext, useEffect, useState } from 'react';
 
 const defaultValue = {
-  toogleCart: false,
-  setToogleCart: function () {
+  toggleCart: false,
+  setToggleCart: function () {
     return null;
   },
   cartItems: [],
@@ -24,9 +24,7 @@ function addItems(cartItems, productItem) {
 
   if (foundItem)
     return cartItems.map((item) =>
-      item.id === foundItem.id
-        ? { ...item, quantity: (item.quantity + 1) }
-        : item
+      item.id === foundItem.id ? { ...item, quantity: item.quantity + 1 } : item
     );
 
   return [...cartItems, { ...productItem, quantity: 1 }];
@@ -39,16 +37,14 @@ function removeItems(cartItems, productItem) {
     return cartItems.filter((item) => item.id !== foundItem.id);
 
   return cartItems.map((item) =>
-    item.id === foundItem.id
-      ? { ...item, quantity: (item.quantity - 1) }
-      : item
+    item.id === foundItem.id ? { ...item, quantity: item.quantity - 1 } : item
   );
 }
 
 export const CartContext = createContext(defaultValue);
 
 export function CartProvider({ children }) {
-  const [toogleCart, setToogleCart] = useState(false);
+  const [toggleCart, setToggleCart] = useState(false);
   const [cartItems, setCartItems] = useState([]);
   const [totalItems, setTotalItems] = useState(0);
   const [totalPrice, setTotalPrice] = useState(0);
@@ -84,8 +80,8 @@ export function CartProvider({ children }) {
   }
 
   const value = {
-    toogleCart,
-    setToogleCart,
+    toggleCart,
+    setToggleCart,
     addItemToCart,
     cartItems,
     totalItems,

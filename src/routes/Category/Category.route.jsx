@@ -1,11 +1,19 @@
 import { useParams } from 'react-router-dom';
 import { useContext, useState, useEffect } from 'react';
-import { CategoriesContext } from '../../contexts/categories.context';
+//import { CategoriesContext } from '../../contexts/categories.context';
 import { CategoryTitle, CategoryContainer } from './Category.styles';
-import { ProductCard } from '../../components';
+import { ProductCard, Spinner } from '../../components';
 
-export default function Category({ title }) {
-  const { categoriesMap } = useContext(CategoriesContext);
+import { useSelector } from 'react-redux';
+import {
+  selectCategoriesMap,
+  selectIsLoading,
+} from '../../store/categories/categories.selector';
+
+export default function Category() {
+  //const { categoriesMap } = useContext(CategoriesContext);
+  const categoriesMap = useSelector(selectCategoriesMap);
+  const isLoading = useSelector(selectIsLoading);
   const { category } = useParams();
   const [products, setProducts] = useState(categoriesMap[category]);
 
@@ -16,12 +24,16 @@ export default function Category({ title }) {
   return (
     <>
       <CategoryTitle>{category}</CategoryTitle>
-      <CategoryContainer>
-        {products &&
-          products.map((product) => (
-            <ProductCard key={product.id} product={product} />
-          ))}
-      </CategoryContainer>
+      {isLoading ? (
+        <Spinner />
+      ) : (
+        <CategoryContainer>
+          {products &&
+            products.map((product) => (
+              <ProductCard key={product.id} product={product} />
+            ))}
+        </CategoryContainer>
+      )}
     </>
   );
 }

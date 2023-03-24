@@ -1,9 +1,12 @@
-import { useContext } from 'react';
+//import { useContext } from 'react';
 import { Outlet } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { selectToggleCart } from '../../store/cart/cart.selector';
+import selectCurrentUser from '../../store/user/user.selector';
 
 import { CartIcon, CartDropdown } from '../../components';
-import { UserContext } from '../../contexts/user.context';
-import { CartContext } from '../../contexts/cart.context';
+//import { UserContext } from '../../contexts/user.context2';
+//import { CartContext } from '../../contexts/cart.context2';
 
 import { ReactComponent as Logo } from '../../assets/crown.svg';
 import { signOutUser } from '../../utils/firebase.utils';
@@ -16,8 +19,12 @@ import {
 } from './Navigation.styles';
 
 export default function Navigation() {
-  const { currentUser } = useContext(UserContext);
-  const { toogleCart } = useContext(CartContext);
+  //useSelector automatically subscribes to the Redux store for us!
+  const currentUser = useSelector(selectCurrentUser);
+  const toggleCart = useSelector(selectToggleCart);
+
+  //const { currentUser } = useContext(UserContext);
+  //const { toggleCart } = useContext(CartContext);
 
   async function handleSignOut() {
     try {
@@ -43,7 +50,7 @@ export default function Navigation() {
           )}
           <CartIcon />
         </NavLinksContainer>
-        {toogleCart && <CartDropdown />}
+        {toggleCart && <CartDropdown />}
       </NavContainer>
       <Outlet />
     </>

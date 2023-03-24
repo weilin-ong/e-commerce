@@ -1,0 +1,4 @@
+export const ACTIONS_TYPE = {
+  UPDATE_CART_ITEMS: 'cart/UPDATE_CART_ITEMS',
+  SET_TOGGLE_CART: 'cart/SET_TOGGLE_CART',
+};
