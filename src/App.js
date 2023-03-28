@@ -1,18 +1,18 @@
-import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import {
   createUserDocumentFromAuth,
   onAuthStateChangedListener,
-} from './utils/firebase.utils';
+} from "./utils/firebase.utils";
 
-import setCurrentUser from './store/user/user.action';
+import setCurrentUser from "./store/user/user.action";
 
-import { Routes, Route } from 'react-router-dom';
-import { Home, Navigation, Shop, Authentication } from './routes';
-import { ToastContainer } from 'react-toastify';
+import { Routes, Route } from "react-router-dom";
+import { Home, Navigation, Shop, Authentication } from "./routes";
+import { ToastContainer } from "react-toastify";
 
-import 'react-toastify/dist/ReactToastify.css';
-import Checkout from './routes/Checkout/Checkout.route';
+import "react-toastify/dist/ReactToastify.css";
+import Checkout from "./routes/Checkout/Checkout.route";
 
 function App() {
   const dispatch = useDispatch();
@@ -34,6 +34,7 @@ function App() {
     <>
       <Routes>
         <Route path='/' element={<Navigation />}>
+          {/* index: match when base is empty */}
           <Route index element={<Home />} />
           <Route path='shop/*' element={<Shop />} />
           <Route path='auth' element={<Authentication />} />

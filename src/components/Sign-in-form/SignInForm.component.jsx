@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import {
   signInWithGooglePopup,
   createUserDocumentFromAuth,
@@ -9,6 +9,7 @@ import { ButtonsContainer, SignInContainer } from './SignInForm.styles.jsx';
 
 import { toast } from 'react-toastify';
 import { toastOptions } from '../../utils/toast.utils';
+import { UserContext } from '../../contexts/user.context';
 
 const initialState = {
   email: '',
@@ -32,12 +33,13 @@ const inputFieldAttributes = [
 
 export default function SignInForm() {
   const [form, setForm] = useState(initialState);
+  // const {setCurrentUser} = useContext(UserContext) 
 
   //Google Sign in
   async function signInWithGoogle() {
     try {
       const { user } = await signInWithGooglePopup();
-      await createUserDocumentFromAuth(user);
+      // await createUserDocumentFromAuth(user);
       toast.success('Signed in successfully', toastOptions);
     } catch (error) {
       console.log(error);
@@ -57,6 +59,10 @@ export default function SignInForm() {
     try {
       await signInAuthUserWithEmailAndPassword(form.email, form.password);
 
+      // not needed since this feature is centralized in context
+      // const { user } = await signInAuthUserWithEmailAndPassword(form.email, form.password);
+      // setCurrentUser(user)
+      
       toast.success('Signed in successfully', toastOptions);
     } catch (error) {
       if (error.code === 'auth/wrong-password')

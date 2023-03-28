@@ -75,7 +75,7 @@ export function signOutUser() {
   return signOut(auth);
 }
 
-//monitor userAuth in order to persist state between refresh unless user sign out manually
+//monitor userAuth in order to persist state between refresh unless user sign out manually aka calling signOutUser fn
 export function onAuthStateChangedListener(cb) {
   return onAuthStateChanged(auth, cb);
 }

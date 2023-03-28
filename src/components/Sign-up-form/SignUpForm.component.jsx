@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import {
   createAuthUserWithEmailAndPassword,
   createUserDocumentFromAuth,
@@ -8,6 +8,7 @@ import { FormInput, Button } from '..';
 
 import { toast } from 'react-toastify';
 import { SignUpContainer } from './SignUpForm.styles';
+import { UserContext } from '../../contexts/user.context';
 
 const initialState = {
   name: '',
@@ -46,6 +47,8 @@ const inputFieldAttributes = [
 export default function SignUpForm() {
   const [form, setForm] = useState(initialState);
 
+  // const {setCurrentUser} = useContext(UserContext)
+
   function handleChange(e) {
     const { name, value } = e.target;
     setForm((prev) => ({ ...prev, [name]: value }));
@@ -60,6 +63,10 @@ export default function SignUpForm() {
           form.email,
           form.password
         );
+        
+        // not needed since this feature is centralized in context 
+        // setCurrentUser(user)
+
         //create user's doc on firestore
         await createUserDocumentFromAuth({
           ...user,

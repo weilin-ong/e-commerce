@@ -42,7 +42,7 @@ export function UserProvider({ children }) {
     dispatch({ type: ACTIONS_TYPE.SET_CURRENT_USER, payload: user });
   }
 
-  const value = { currentUser: state.currentUser };
+  const value = { currentUser: state.currentUser, setCurrentUser };
 
   useEffect(() => {
     function checkUserAuth(user) {

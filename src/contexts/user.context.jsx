@@ -11,6 +11,8 @@ const defaultValue = {
     return null;
   },
 };
+
+//actual value I want to access
 export const UserContext = createContext(defaultValue);
 
 export function UserProvider({ children }) {

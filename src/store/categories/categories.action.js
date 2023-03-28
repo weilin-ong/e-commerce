@@ -1,6 +1,10 @@
 import { CATEGORIES_ACTION_TYPE } from './categories.types';
 import { getCategoriesAndDocuments } from '../../utils/firebase.utils';
 
+export function setCategories(categoriesArray) {
+   return { type: CATEGORIES_ACTION_TYPE.SET_CATEGORIES, payload: categoriesArray }; 
+}
+
 export default function fetchCategoriesAsync() {
   return async function (dispatch) {
     dispatch(fetchCategoriesStart());
